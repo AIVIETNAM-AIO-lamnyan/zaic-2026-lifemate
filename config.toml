@@ -1,0 +1,56 @@
+[paths]
+data_root = "/data"
+result_dir = "/result"
+gipformer_model = "saved_models/asr/gipformer1.5-zac-ft06"
+llm_model = "saved_models/llm/Qwen3.5-4B"
+llm_lora_adapter = "saved_models/qwen35_4b_lora_adapter/checkpoint-486"
+
+
+[vllm]
+model_name = "qwen3.5:4b"
+host = "127.0.0.1"
+port = 8000
+max_model_len = 16384
+gpu_memory_utilization = 0.925
+max_wait_seconds = 600
+
+[prediction]
+split = "private_test"
+eval_ids = ""
+submission_file_name = "submission_best_think-off.jsonl"
+agent_thinking_mode = false
+vllm_url = ""
+
+[jupyter]
+host = "0.0.0.0"
+port = 9777
+output_file_name = "jupyter_submission.jsonl"
+
+[finetune]
+# Train uses paths.data_root/train and paths.llm_model.
+# Keep thinking aligned with prediction.agent_thinking_mode.
+output_dir = "saved_models/qwen35_4b_lora_adapter"
+resume_from_checkpoint = ""
+sample_limit = 0                  # 0 = all train samples
+seed = 42
+max_seq_length = 16384
+fuzzy_weight = 0.3
+loss_chunk_size = 128
+quantization = "bf16"            # local compressed FP8 checkpoint uses 16-bit LoRA
+lora_r = 16
+lora_alpha = 32
+lora_dropout = 0.0
+lora_bias = "none"
+gradient_checkpointing = "unsloth"
+lora_target_modules = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+epochs = 20
+early_stopping_patience = 5
+per_device_train_batch_size = 4
+per_device_eval_batch_size = 4
+gradient_accumulation_steps = 2
+learning_rate = 0.0002
+lr_scheduler_type = "cosine"
+warmup_steps = 10
+optimizer = "adamw_8bit"
+eval_ratio = 0.1
+save_total_limit = 2

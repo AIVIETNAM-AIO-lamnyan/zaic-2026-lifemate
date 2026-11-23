@@ -1,0 +1,6 @@
+# Môi trường cho model mặc định Gipformer (ONNX, chạy CPU, không cần torch).
+#   pip install -r src/asr/requirements-sherpa.txt
+numpy>=1.26
+soundfile>=0.12
+sherpa-onnx>=1.12     # giải mã Zipformer RNN-T + hotword
+huggingface_hub>=0.24 # tải model nếu ZAC_GIPFORMER_MODEL là id repo

@@ -1,0 +1,42 @@
+[project]
+name = "zalo-ai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Zoan-pUwUq", email = "doanhvth@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.15.0",
+    "huggingface-hub[cli]>=2.4.0",
+    "jupyterlab>=4.6.6",
+    "sentencepiece>=0.2.3",
+    "sherpa-onnx>=2.0.1",
+    "soundfile>=0.14.0",
+    "torch>=2.13.0",
+    "tqdm>=4.70.1",
+    "transformers>=5.17.0",
+]
+
+# Matches the verified Python 3.12 / Linux x86_64 / CUDA 13.0
+# finetune environment. The causal-conv1d wheel is not portable to other ABIs.
+[project.optional-dependencies]
+finetune = [
+    "torch==2.14.1",
+    "transformers==5.17.0",
+    "unsloth==2026.11.6",
+    "datasets==4.8.5",
+    "bitsandbytes==0.50.2",
+    "loralib==0.1.2",
+    "einops==0.8.2",
+    "ipykernel==7.3.0",
+    "causal-conv1d @ https://github.com/astral-sh-build/build-causal-conv1d/releases/download/v1.7.0/causal_conv1d-1.7.0%2Bcu.13.0.torch.2.14-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl#sha256=02f9fe0175f29f9c852b170c1df1210b78cdde33385d2dde378cff612fe9dc97",
+]
+
+[project.scripts]
+zalo-ai = "zalo_ai:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"

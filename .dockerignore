@@ -1,0 +1,67 @@
+# Weight inference (ASR + LLM) và src/ phải được COPY; private test do BTC mount vào /data.
+# Dữ liệu private test do BTC mount vào /data, không đóng trong image.
+
+# VCS và môi trường máy host
+.git/
+.gitignore
+.venv/
+venv/
+env/
+.python-version
+
+# Docker artifacts and local export archives (never copy these into the image)
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.md5
+
+# Dữ liệu cuộc thi (public/train). Private test được mount lúc chấm.
+train+public_test
+training_code
+
+# Bản sao src/asr, không dùng khi chạy /code
+zaic_lifemate_asr
+
+# Symlink trỏ vào saved_models; COPY cả hai dễ nhân đôi hoặc gãy path
+checkpoints
+
+# LLM model and the user's local tokenizer need to be copied into the offline image.
+# Bỏ qua file GGUF cũ và tokenizer cũ để giảm dung lượng image
+saved_models/llm/*.gguf
+saved_models/llm/tokenizer
+
+# Never include local download/cache metadata inside model directories.
+saved_models/**/.cache
+saved_models/**/*.lock
+saved_models/**/*.metadata
+**/.cache
+**/.gitattributes
+**/.lock
+**/.metadata
+
+# Cache, test, log
+**/__pycache__
+**/*.py[cod]
+**/.ipynb_checkpoints
+**/.mypy_cache
+**/.ruff_cache
+*.log
+logs
+runs
+wandb
+mlruns
+.coverage
+htmlcov
+
+# Kết quả local, không nộp trong image
+result
+results
+output
+submission*.jsonl
+
+# Metadata không cần trong image
+uv.lock
+*.egg-info
+.DS_Store
+__MACOSX

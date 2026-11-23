@@ -1,0 +1,11 @@
+/saved_models/llm
+/saved_models/asr
+/ports.log
+/.ipynb_checkpoints
+
+**/__pycache__
+/checkpoints_qwen35_4b_lora
+
+/unsloth_compiled_cache
+
+/portlog
